@@ -1,26 +1,13 @@
-# milkroad
+# milkroad-backend
 
-a [Sails v1](https://sailsjs.com) application
+## Development Instructions
 
+Docker is used for development in order to remove the overhead of having to manage
+PostgreSQL and Node.js locally. 
 
-### Links
+To do the initial setup, run `docker-compose build`. Then, run the migrations on 
+the database by running `docker-compose exec web /bin/sh -c 'npm run db:migrate'`. 
 
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
-
-
-### Version info
-
-This app was originally generated on Tue May 28 2019 16:32:36 GMT+0000 (GMT) using Sails v1.2.2.
-
-<!-- Internally, Sails used [`sails-generate@1.16.12`](https://github.com/balderdashy/sails-generate/tree/v1.16.12/lib/core-generators/new). -->
-
-
-
-<!--
-Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
--->
+Once set up, you must manually start the web server after every change to test
+the server by running `docker-compose build && docker-compose run`. Migrations can be ran as instructed above.
 

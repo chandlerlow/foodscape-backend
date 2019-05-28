@@ -1,0 +1,15 @@
+services: docker
+
+env:
+  - NODE_ENV=test
+before_install:
+  - docker -v
+  - docker-compose build
+install:
+  - docker-compose up
+script:
+  # Migrate and seed database
+  - docker-compose exec web /bin/sh -c "npm run db:migrate"
+  - docker-compose exec web /bin/sh -c "npm run db:seed"
+  # Run tests
+  - docker-compose exec web /bin/sh -c "npm run test"
