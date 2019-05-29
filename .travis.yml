@@ -30,8 +30,5 @@ jobs:
       language: minimal
       before_install:
         - openssl aes-256-cbc -K $encrypted_27a895431b53_key -iv $encrypted_27a895431b53_iv -in .travis/id_rsa.enc -out .travis/id_rsa -d
-      deploy:
-        provider: script
-        script: bash scripts/deploy.sh
-        on:
-          branch: master
+      install:
+        - bash scripts/deploy.sh
