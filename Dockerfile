@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 
-RUN npm install -g nodemon --quiet
+RUN npm install -g nodemon sequelize --quiet
 RUN npm install --quiet
 
 COPY . .
