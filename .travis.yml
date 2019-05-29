@@ -1,5 +1,8 @@
 services: docker
 
+stages:
+  - test
+  - deploy
 jobs:
   include:
     - stage: test
