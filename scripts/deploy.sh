@@ -2,6 +2,7 @@
 
 eval "$(ssh-agent -s)" # Start ssh-agent cache
 cd $TRAVIS_BUILD_DIR
+openssl aes-256-cbc -K $encrypted_27a895431b53_key -iv $encrypted_27a895431b53_iv -in .travis/id_rsa.enc -out .travis/id_rsa -d
 chmod 600 .travis/id_rsa # Allow read access to the private key
 ssh-add .travis/id_rsa # Add the private key to SSH
 echo -e "Host $IP\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
