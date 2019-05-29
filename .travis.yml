@@ -8,6 +8,10 @@ jobs:
     - stage: test
       env:
         - NODE_ENV=test
+      cache:
+        directories:
+          - $HOME/.rvm/
+          - node_modules
       before_install:
         - docker -v
         # Stop the postgres instance TravisCI sets up automatically
