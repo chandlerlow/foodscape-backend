@@ -6,6 +6,7 @@ before_install:
   - docker -v
   # Stop the postgres instance TravisCI sets up automatically
   - sudo /etc/init.d/postgresql stop
+  - sudo service postgresql stop
   - sudo service mysql stop
   # Build the containers
   - docker-compose build
