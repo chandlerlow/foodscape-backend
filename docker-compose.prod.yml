@@ -2,6 +2,7 @@ version: '2'
 services:
   web:
     restart: always
+    network_mode: "host"
     ports:
       - "80:80"
     environment:

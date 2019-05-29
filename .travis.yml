@@ -27,7 +27,11 @@ jobs:
         # Run tests
         - docker-compose exec web /bin/sh -c "npm run test"
     - stage: deploy
+      language: minimal
       before_install:
         - openssl aes-256-cbc -K $encrypted_27a895431b53_key -iv $encrypted_27a895431b53_iv -in .travis/id_rsa.enc -out .travis/id_rsa -d
-      install:
-        - bash scripts/deploy.sh
+      deploy:
+        provider: script
+        script: bash scripts/deploy.sh
+        on:
+          branch: master
