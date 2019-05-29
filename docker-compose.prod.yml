@@ -3,9 +3,6 @@ services:
   web:
     restart: always
     network_mode: "host"
-    volumes:
-      - .:/app
-      - /app/node_modules
     ports:
       - "80:80"
     environment:

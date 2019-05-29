@@ -13,6 +13,9 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    volumes:
+      - .:/app
+      - /app/node_modules
     environment:
       - DB_HOST=db
       - DB_NAME=milkroad
