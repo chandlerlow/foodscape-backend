@@ -1,6 +1,6 @@
 services: docker
 
-jobs
+jobs:
   include:
     - stage: test
       env:
