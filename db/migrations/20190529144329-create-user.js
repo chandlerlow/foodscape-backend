@@ -10,13 +10,13 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING
-      }
+      },
       location: {
         type: Sequelize.STRING
-      }
+      },
       phone_no: {
         type: Sequelize.INTEGER
-      }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
