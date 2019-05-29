@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER,
     expiry_date: DataTypes.DATE,
     description: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
   }, {});
   Item.associate = function(models) {
     // associations can be defined here
+    Item.belongsTo(User);
   };
   return Item;
 };
