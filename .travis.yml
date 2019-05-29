@@ -23,7 +23,7 @@ jobs:
       install:
         # Start the containers, leaving enough time for them to set up
         - docker-compose up -d
-        - sleep 15
+        - sleep 10
       script:
         # Migrate and seed database
         - docker-compose exec web /bin/sh -c "npm run db:migrate"
