@@ -5,8 +5,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: milkroad
+      - POSTGRES_DB=milkroad
+      - POSTGRES_USER=postgres
   web:
     build: .
     ports:
@@ -14,5 +14,8 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres@db
-      NODE_ENV: development
+      - DB_HOST=db
+      - DB_NAME=milkroad
+      - DB_USER=postgres
+      - DB_PASS=
+      - NODE_ENV
