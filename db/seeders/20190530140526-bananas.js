@@ -6,7 +6,7 @@ var bananas = {
   quantity: '1 bunch',
   expiry_date: new Date("June 2 2019 00:00"), 
   description: 'A perfectly good bunch of bananas!',
-  user_id: 1,
+  user_id: 2,
   createdAt: new Date(),
   updatedAt: new Date()
 };
