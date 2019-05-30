@@ -1,24 +1,19 @@
-'use strict';
-
-var bananas = {
+const bananas = {
   name: 'Bananas',
   photo: 'https://tinyurl.com/y23wzpyo',
   quantity: '1 bunch',
-  expiry_date: new Date("June 2 2019 00:00"), 
+  expiry_date: new Date('June 2 2019 00:00'),
   description: 'A perfectly good bunch of bananas!',
   user_id: 2,
   createdAt: new Date(),
-  updatedAt: new Date()
+  updatedAt: new Date(),
 };
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    // Add dummy bananas item
-    return queryInterface.bulkInsert('Items', [bananas], {});
-  },
+  up: (queryInterface, Sequelize) => queryInterface
+    .bulkInsert('Items', [bananas], {}),
 
-  down: (queryInterface, Sequelize) => {
-    // Delete bananas item
-    return queryInterface.bulkDelete('Items', null, {});
-  }
+  down: (queryInterface, Sequelize) => queryInterface
+    .bulkDelete('Items', null, {}),
+
 };

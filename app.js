@@ -1,15 +1,13 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 require('dotenv').config();
 
 // Routes
-var indexRouter = require('./routes');
+const indexRouter = require('./routes');
 
-const PORT = process.env.PORT || 3000;
-
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
