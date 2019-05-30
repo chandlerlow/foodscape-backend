@@ -3,7 +3,7 @@
 var jenny = {
   name: 'Jenny Xu',
   location: 'Block A',
-  phone_no: 07790727425
+  phone_no: '07790727425'
 }
 
 module.exports = {
