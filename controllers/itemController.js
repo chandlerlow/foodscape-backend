@@ -1,4 +1,5 @@
 const Item = require('../db/models').Item;
+const op = require('sequelize').Op;
 
 module.exports = {
   create(req, res) {
@@ -17,9 +18,22 @@ module.exports = {
   },
 
   get(req, res) {
-    // Get item with specified id 
-    return Item.findByPk(req.params.id)
+    // Get item with given id 
+    return Item.findByPk(req.params.item_id)
     .then(item => res.status(200).send(item))
+    .catch(error => res.status(400).send(error));
+  },
+
+  showItems(req, res) {
+    // Show all items that don't belong to user with given user_id
+    return Item.findAll({
+      where: {
+        user_id: {
+          [op.ne]: req.params.user_id
+        }
+      }
+    })
+    .then(items => res.status(200).send(items))
     .catch(error => res.status(400).send(error));
   }
 };
