@@ -11,7 +11,7 @@ module.exports = {
       expiry_date: req.body.expiry_date,
       description: req.body.description
     })
-    .then(item => res.status(201).send(item))
+    .then(item => res.status(201).send("Item successfully added!"))
     .catch(error => res.status(400).send(error));
   },
 
