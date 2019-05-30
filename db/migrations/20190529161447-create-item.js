@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.BLOB
       },
       quantity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       expiry_date: {
         type: Sequelize.DATE
