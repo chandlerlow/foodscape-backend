@@ -9,7 +9,8 @@ module.exports = {
       photo: req.body.photo,
       quantity: req.body.quantity,
       expiry_date: req.body.expiry_date,
-      description: req.body.description
+      description: req.body.description,
+      user_id: 2
     })
     .then(item => res.status(201).send("Item successfully added!"))
     .catch(error => res.status(400).send(error));

@@ -11,6 +11,6 @@ router.get('/', function(req, res, next) {
 router.get('/items/:id', itemController.get);
 
 /* POST new item. */
-router.post('/items/:id', itemController.create);
+router.post('/items', itemController.create);
 
 module.exports = router;
