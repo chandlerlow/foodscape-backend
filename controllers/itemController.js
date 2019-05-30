@@ -11,13 +11,13 @@ module.exports = {
       expiry_date: req.body.expiry_date,
       description: req.body.description
     })
-    .then(item => res.status(201).send(item))
+    .then(item => res.status(201).send("Item successfully added!"))
     .catch(error => res.status(400).send(error));
   },
 
   get(req, res) {
     // Get item with specified id 
-    return Item.findByPk(req.param.id)
+    return Item.findByPk(req.params.id)
     .then(item => res.status(200).send(item))
     .catch(error => res.status(400).send(error));
   }

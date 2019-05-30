@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       photo: {
-        type: Sequelize.BLOB
+        type: Sequelize.STRING
       },
       quantity: {
         type: Sequelize.STRING
@@ -22,6 +22,15 @@ module.exports = {
       },
       description: {
         type: Sequelize.STRING
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
       createdAt: {
         allowNull: false,
