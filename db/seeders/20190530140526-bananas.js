@@ -2,7 +2,7 @@
 
 var bananas = {
   name: 'Bananas',
-  photo: '',
+  photo: 'https://tinyurl.com/y23wzpyo',
   quantity: '1 bunch',
   expiry_date: new Date("June 2 2019 00:00"), 
   description: 'A perfectly good bunch of bananas!',
