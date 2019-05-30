@@ -17,7 +17,7 @@ module.exports = {
 
   get(req, res) {
     // Get item with specified id 
-    return Item.findByPk(req.param.id)
+    return Item.findByPk(req.params.id)
     .then(item => res.status(200).send(item))
     .catch(error => res.status(400).send(error));
   }
