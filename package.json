@@ -7,7 +7,9 @@
     "dev": "nodemon ./bin/www",
     "test": "echo \"No tests implemented yet!\" && exit 0",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",
-    "db:seed": "./node_modules/.bin/sequelize db:seed:all"
+    "db:migrate:undo": "./node_modules/.bin/sequelize db:migrate:undo:all",
+    "db:seed": "./node_modules/.bin/sequelize db:seed:all",
+    "db:seed:undo": "./node_modules/.bin/sequelize db:seed:undo:all"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
