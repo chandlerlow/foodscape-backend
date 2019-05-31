@@ -11,7 +11,8 @@
     "db:seed": "./node_modules/.bin/sequelize db:seed:all",
     "db:seed:undo": "./node_modules/.bin/sequelize db:seed:undo:all",
     "db:init": "npm run db:migrate && npm run db:seed",
-    "db:delete": "npm run db:seed:undo && npm run db:migrate:undo"
+    "db:delete": "npm run db:seed:undo && npm run db:migrate:undo",
+    "lint": "./node_modules/.bin/eslint ."
   },
   "dependencies": {
     "body-parser": "^1.19.0",
