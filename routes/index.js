@@ -8,13 +8,13 @@ router.get('/', (req, res, next) => {
   res.status(200).send({ message: 'Hello world!' });
 });
 
-/* GET item with given id. */
-router.get('/items/:item_id', itemController.get);
+/* GET items to be shown for the authenticated user. */
+router.get('/user/items', itemController.listOwnedByAuthenticated);
+
+/* GET items to be shown for user (except for the current one if authenticated). */
+router.get('/items', itemController.list);
 
 /* POST new item. */
 router.post('/items', itemController.create);
-
-/* GET items to be shown for user with given user_id. */
-router.get('/items/foruser/:user_id', itemController.showItems);
 
 module.exports = router;
