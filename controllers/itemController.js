@@ -20,7 +20,14 @@ module.exports = {
 
   get(req, res) {
     // Get item with given id 
-    return Item.findByPk(req.params.item_id)
+    return Item.findByPk(req.params.item_id, {
+      include: {
+        model: User
+      },
+      attributes: {
+        exclude: ["user_id"]
+      }
+    })
     .then(item => res.status(200).send(item))
     .catch(error => res.status(400).send(error));
   },
