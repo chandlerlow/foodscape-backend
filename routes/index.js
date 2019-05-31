@@ -5,7 +5,7 @@ const itemController = require('../controllers/itemController');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.status(200).send({ message: 'Hello world!' });
+  res.status(200).send({ message: 'Hello WebApps!' });
 });
 
 /* GET items to be shown for the authenticated user. */
