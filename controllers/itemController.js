@@ -1,4 +1,5 @@
 const Item = require('../db/models').Item;
+const User = require('../db/models').User;
 const op = require('sequelize').Op;
 
 module.exports = {
@@ -31,6 +32,12 @@ module.exports = {
         user_id: {
           [op.ne]: req.params.user_id
         }
+      },
+      include: {
+        model: User
+      },
+      attributes: {
+        exclude: ["user_id"]
       }
     })
     .then(items => res.status(200).send(items))
