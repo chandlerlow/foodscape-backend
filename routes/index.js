@@ -4,7 +4,7 @@ const router = express.Router();
 const itemController = require('../controllers/itemController');
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.status(200).send({ message: 'Hello WebApps!' });
 });
 
