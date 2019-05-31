@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var itemController = require('../controllers/itemController')
+const express = require('express');
+
+const router = express.Router();
+const itemController = require('../controllers/itemController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.status(200).send({message: 'Hello world!'});
+router.get('/', (req, res, next) => {
+  res.status(200).send({ message: 'Hello world!' });
 });
 
 /* GET item with given id. */

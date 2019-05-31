@@ -1,6 +1,6 @@
-const Item = require('../db/models').Item;
-const User = require('../db/models').User;
 const op = require('sequelize').Op;
+const { Item } = require('../db/models');
+const { User } = require('../db/models');
 
 module.exports = {
   create(req, res) {
@@ -12,24 +12,24 @@ module.exports = {
       quantity: req.body.quantity,
       expiry_date: req.body.expiry_date,
       description: req.body.description,
-      user_id: 2
+      user_id: 2,
     })
-    .then(item => res.status(201).send("Item successfully added!"))
-    .catch(error => res.status(400).send(error));
+      .then(() => res.status(201).send('Item successfully added!'))
+      .catch(error => res.status(400).send(error));
   },
 
   get(req, res) {
-    // Get item with given id 
+    // Get item with given id
     return Item.findByPk(req.params.item_id, {
       include: {
-        model: User
+        model: User,
       },
       attributes: {
-        exclude: ["user_id"]
-      }
+        exclude: ['user_id'],
+      },
     })
-    .then(item => res.status(200).send(item))
-    .catch(error => res.status(400).send(error));
+      .then(item => res.status(200).send(item))
+      .catch(error => res.status(400).send(error));
   },
 
   showItems(req, res) {
@@ -37,17 +37,17 @@ module.exports = {
     return Item.findAll({
       where: {
         user_id: {
-          [op.ne]: req.params.user_id
-        }
+          [op.ne]: req.params.user_id,
+        },
       },
       include: {
-        model: User
+        model: User,
       },
       attributes: {
-        exclude: ["user_id"]
-      }
+        exclude: ['user_id'],
+      },
     })
-    .then(items => res.status(200).send(items))
-    .catch(error => res.status(400).send(error));
-  }
+      .then(items => res.status(200).send(items))
+      .catch(error => res.status(400).send(error));
+  },
 };
