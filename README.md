@@ -6,7 +6,7 @@ Docker is used for development in order to remove the overhead of having to mana
 
 To do the initial setup, run `docker-compose build` followed by `docker-compose up -d` to start the server in detached mode.
 
-Once set up, you must manually start the web server after every change to test the server by running `docker-compose build && docker-compose run`. Database scripts can be run as instructed below.
+Any modifications to your local code will automatically be transferred to the server while it is running. Database scripts can be run as instructed below. Use `docker-compose down` to stop the server.
 
 ### Database Scripts
 
