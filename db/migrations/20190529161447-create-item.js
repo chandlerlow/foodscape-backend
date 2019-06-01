@@ -7,21 +7,27 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     name: {
+      allowNull: false,
       type: Sequelize.STRING,
     },
     photo: {
+      allowNull: false,
       type: Sequelize.STRING,
     },
     quantity: {
+      allowNull: false,
       type: Sequelize.STRING,
     },
     expiry_date: {
+      allowNull: false,
       type: Sequelize.DATE,
     },
     description: {
+      allowNull: false,
       type: Sequelize.STRING,
     },
     user_id: {
+      allowNull: false,
       type: Sequelize.INTEGER,
       references: {
         model: 'Users',
