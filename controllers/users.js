@@ -31,7 +31,13 @@ module.exports = {
 
         // Generate and return JWT token due to successful authentication
         const token = jwt.sign({ userId: user.id }, config.secret);
-        return res.json({ token });
+        return res.json({
+          id: user.id,
+          name: user.name,
+          location: user.location,
+          phone_no: user.phone_no,
+          token,
+        });
       } catch (e) {
         return res.status(500).send(e);
       }
@@ -67,7 +73,13 @@ module.exports = {
         });
 
         const token = jwt.sign({ userId: user.id }, config.secret);
-        return res.json({ token });
+        return res.json({
+          id: user.id,
+          name: user.name,
+          location: user.location,
+          phone_no: user.phone_no,
+          token,
+        });
       } catch (e) {
         return res.status(500).send(e);
       }
