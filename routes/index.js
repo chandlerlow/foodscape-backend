@@ -5,6 +5,7 @@ const { check } = require('express-validator/check');
 const auth = require('../middleware/auth');
 const itemController = require('../controllers/items');
 const userController = require('../controllers/users');
+const photoController = require('../controllers/photos');
 
 
 /* GET home page. */
@@ -34,10 +35,13 @@ router.get('/items', itemController.list);
 /* POST new item. */
 router.post('/items', [
   check('name').exists(),
-  check('photo').exists(),
   check('quantity').exists(),
   check('expiry_date').exists().isAfter(),
   check('description').exists(),
 ], itemController.create);
+
+/* Photo upload route (authentication required) */
+router.use('/photos/upload', auth);
+router.post('/photos/upload', photoController.upload);
 
 module.exports = router;
