@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     photo: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     quantity: {
       type: DataTypes.STRING,

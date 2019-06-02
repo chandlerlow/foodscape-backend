@@ -1,4 +1,4 @@
-FROM node:8.10.0
+FROM node:10.16.0
 
 ENV NODE_ENV development
 
