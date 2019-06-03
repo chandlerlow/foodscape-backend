@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator/check');
 const { Item } = require('../db/models');
 const { User } = require('../db/models');
 const { Image } = require('../db/models');
+const { Category } = require('../db/models');
 
 module.exports = {
   create(req, res) {
@@ -85,33 +86,94 @@ module.exports = {
   },
 
   list(req, res) {
-    return Item.findAll({
-      where: {
-        user_id: {
-          [op.ne]: req.user.id,
-        },
-      },
-      include: {
-        model: User,
-      },
-      attributes: {
-        exclude: ['user_id'],
-      },
-    }).then(items => res.status(200).send(items.map(i => ({
-      id: i.id,
-      name: i.name,
-      photo: i.photo,
-      quantity: i.quantity,
-      expiry_date: i.expiry_date,
-      description: i.description,
-      created_at: i.createdAt,
-      updated_at: i.updatedAt,
-      user: {
-        id: i.User.id,
-        name: i.User.name,
-        location: i.User.location,
-        phone_no: i.User.phone_no,
-      },
-    })))).catch(error => res.status(400).send(error));
+    (async () => {
+      let result = {};
+
+      // Getting all the items for backwards compatibility
+      try {
+        const allItems = await Item.findAll({
+          where: {
+            user_id: {
+              [op.ne]: req.user.id,
+            },
+          },
+          include: {
+            model: User,
+          },
+          attributes: {
+            exclude: ['user_id'],
+          },
+        }).map(i => ({
+          id: i.id,
+          name: i.name,
+          photo: i.photo,
+          quantity: i.quantity,
+          expiry_date: i.expiry_date,
+          description: i.description,
+          created_at: i.createdAt,
+          updated_at: i.updatedAt,
+          user: {
+            id: i.User.id,
+            name: i.User.name,
+            location: i.User.location,
+            phone_no: i.User.phone_no,
+          },
+          category: i.category_id,
+        }));
+        result.all_categories = allItems;
+        // working here
+      } catch (error) {
+        return res.status(400).send(error);
+      }
+
+      // Get a list of category IDs
+      let categoryIds;
+      try {
+        categoryIds = await Category.findAll({
+          attributes: {
+            exclude: ['category_id'],
+          },
+        }).map(category => category.id);
+      } catch (error) {
+        return res.status(400).send(error);
+      }
+      
+      // For every category ID, look up the items for this category
+      for (let categoryId of categoryIds) {
+        const categoryItems = await Item.findAll({
+          where: {
+            category_id: {
+              [op.eq]: categoryId,
+            },
+          },
+          include: [{
+            model: User,
+          }],
+          attributes: {
+            exclude: ['user_id'],
+          },
+        }).map(i => ({
+          id: i.id,
+          name: i.name,
+          photo: i.photo,
+          quantity: i.quantity,
+          expiry_date: i.expiry_date,
+          description: i.description,
+          created_at: i.createdAt,
+          updated_at: i.updatedAt,
+          user: {
+            id: i.User.id,
+            name: i.User.name,
+            location: i.User.location,
+            phone_no: i.User.phone_no,
+          },
+          category: i.category_id,
+        }));
+
+        result[categoryId] = categoryItems;
+      }
+
+      res.status(200).send(result);
+    })();
   },
 };
