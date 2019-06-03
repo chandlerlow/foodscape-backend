@@ -35,7 +35,7 @@ module.exports = {
           cb(null, filename);
         },
       }),
-    }).array('upload', 1);
+    }).single('upload');
 
     upload(req, res, (error) => {
       if (error) {
