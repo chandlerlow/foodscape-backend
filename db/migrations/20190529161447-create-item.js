@@ -36,6 +36,16 @@ module.exports = {
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
     },
+    category_id: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'Categories',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

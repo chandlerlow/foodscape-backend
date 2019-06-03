@@ -7,6 +7,7 @@ const bobBananas = {
   expiry_date: moment().add(3, 'days').toDate(),
   description: 'A perfectly good bunch of bananas!',
   user_id: 2,
+  category_id: 2,
   createdAt: new Date(),
   updatedAt: new Date(),
 };

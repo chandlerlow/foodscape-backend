@@ -31,11 +31,11 @@ router.post('/auth/register', [
 /* Items routes (authentication required) */
 router.use('/items', auth);
 
-/* GET items to be shown for the authenticated user. */
-router.get('/items/user', itemController.listOwnedByCurrentUser);
-
-/* GET items to be shown for user (except for the current one if authenticated). */
+/* GET items to be shown for current user */
 router.get('/items', itemController.list);
+
+/* GET items listed by current user */
+router.get('/items/user', itemController.listOwnedByCurrentUser);
 
 /* POST new item. */
 router.post('/items', [
