@@ -8,16 +8,18 @@ const userController = require('../controllers/users');
 const photoController = require('../controllers/photos');
 
 
-/* GET home page. */
+/* Default message on home page. */
 router.get('/', (req, res) => {
   res.status(200).send({ message: 'Hello WebApps!' });
 });
 
+/* POST to login page */
 router.post('/auth/login', [
   check('username').exists(),
   check('password').exists(),
 ], userController.login);
 
+/* POST to register new user page */
 router.post('/auth/register', [
   check('username').exists(),
   check('password').exists(),
@@ -28,10 +30,13 @@ router.post('/auth/register', [
 
 /* Items routes (authentication required) */
 router.use('/items', auth);
+
 /* GET items to be shown for the authenticated user. */
 router.get('/items/user', itemController.listOwnedByCurrentUser);
+
 /* GET items to be shown for user (except for the current one if authenticated). */
 router.get('/items', itemController.list);
+
 /* POST new item. */
 router.post('/items', [
   check('name').exists(),
