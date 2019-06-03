@@ -14,7 +14,7 @@ module.exports = {
     (async () => {
       // Validate the photo if it exists; we must ensure that the photo uploaded is already in the
       // database for the current user
-      if (req.body.photo != null) {
+      if (req.body.photo != null && req.body.photo !== '') {
         try {
           const count = await Image.count({
             where: {
@@ -39,7 +39,7 @@ module.exports = {
       try {
         await Item.create({
           name: req.body.name,
-          photo: req.body.photo,
+          photo: req.body.photo === '' ? null : req.body.photo,
           quantity: req.body.quantity,
           expiry_date: req.body.expiry_date,
           description: req.body.description,
