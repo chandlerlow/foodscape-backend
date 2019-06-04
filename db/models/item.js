@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     Item.belongsTo(models.User, {
       foreignKey: 'user_id',
     });
-    Item.hasOne(models.Category, {
+    Item.belongsTo(models.Category, {
       foreignKey: 'category_id',
     });
   };
