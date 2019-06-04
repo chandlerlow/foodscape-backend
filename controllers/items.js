@@ -91,17 +91,22 @@ module.exports = {
 
       // Getting all the items for backwards compatibility
       try {
-        const allItems = await Item.findAll({
+        result.all_categories = await Item.findAll({
           where: {
             user_id: {
               [op.ne]: req.user.id,
             },
           },
-          include: {
-            model: User,
-          },
+          include: [
+            {
+              model: User,
+            },
+            {
+              model: Category,
+            },
+          ],
           attributes: {
-            exclude: ['user_id'],
+            exclude: ['user_id', 'category_id'],
           },
         }).map(i => ({
           id: i.id,
@@ -118,10 +123,11 @@ module.exports = {
             location: i.User.location,
             phone_no: i.User.phone_no,
           },
-          category: i.category_id,
+          category: {
+            id: i.Category.id,
+            name: i.Category.name,
+          },
         }));
-        result.all_categories = allItems;
-        // working here
       } catch (error) {
         return res.status(400).send(error);
       }
@@ -129,11 +135,7 @@ module.exports = {
       // Get a list of category IDs
       let categoryIds;
       try {
-        categoryIds = await Category.findAll({
-          attributes: {
-            exclude: ['category_id'],
-          },
-        }).map(category => category.id);
+        categoryIds = await Category.findAll().map(category => category.id);
       } catch (error) {
         return res.status(400).send(error);
       }
@@ -150,11 +152,9 @@ module.exports = {
               [op.eq]: categoryId,
             },
           },
-          include: [{
-            model: User,
-          }],
+          include: [{ model: User }, { model: Category },],
           attributes: {
-            exclude: ['user_id'],
+            exclude: ['user_id', 'category_id'],
           },
         }).map(i => ({
           id: i.id,
@@ -171,7 +171,10 @@ module.exports = {
             location: i.User.location,
             phone_no: i.User.phone_no,
           },
-          category: i.category_id,
+          category: {
+            id: i.Category.id,
+            name: i.Category.name,
+          },
         }));
 
         promises.push(categoryItems);
