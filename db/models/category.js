@@ -3,13 +3,13 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   }, {});
   Category.associate = function (models) {
     // associations can be defined here
     Category.hasMany(models.Item, {
       foreignKey: 'category_id',
     });
-  }
+  };
   return Category;
 };

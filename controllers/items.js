@@ -87,7 +87,7 @@ module.exports = {
 
   list(req, res) {
     (async () => {
-      let result = {};
+      const result = {};
 
       // Getting all the items for backwards compatibility
       try {
@@ -137,9 +137,9 @@ module.exports = {
       } catch (error) {
         return res.status(400).send(error);
       }
-      
+
       // For every category ID, look up the items for this category
-      for (let categoryId of categoryIds) {
+      for (const categoryId of categoryIds) {
         const categoryItems = await Item.findAll({
           where: {
             category_id: {
