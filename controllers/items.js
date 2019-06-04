@@ -139,8 +139,12 @@ module.exports = {
       }
 
       // For every category ID, look up the items for this category
-      for (const categoryId of categoryIds) {
-        const categoryItems = await Item.findAll({
+
+      let promises = [];
+
+      categoryIds.forEach(async (categoryId) => {
+        // Get items in each category, without waiting for jobs to complete
+        const categoryItems = Item.findAll({
           where: {
             category_id: {
               [op.eq]: categoryId,
@@ -170,8 +174,15 @@ module.exports = {
           category: i.category_id,
         }));
 
-        result[categoryId] = categoryItems;
-      }
+        promises.push(categoryItems);
+      });
+
+      // We now wait for all jobs to complete
+      promises = await Promise.all(promises);
+
+      promises.forEach((categoryItems, categoryId) => {
+        result[categoryId + 1] = categoryItems;
+      });
 
       res.status(200).send(result);
     })();

@@ -1,9 +1,7 @@
-const op = require('sequelize').Op;
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator/check');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const { Item } = require('../db/models');
 const { User } = require('../db/models');
 const { sequelize } = require('../db/models/index');
 
