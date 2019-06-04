@@ -19,10 +19,10 @@ const bob = {
 };
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface
+  up: queryInterface => queryInterface
     .bulkInsert('Users', [jenny, bob], {}),
 
-  down: (queryInterface, Sequelize) => queryInterface
+  down: queryInterface => queryInterface
     .bulkDelete('Users', null, {}),
 
 };

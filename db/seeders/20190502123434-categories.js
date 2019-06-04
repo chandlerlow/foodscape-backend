@@ -41,9 +41,9 @@ const confectionery = {
 };
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface
+  up: queryInterface => queryInterface
     .bulkInsert('Categories', [noCategory, fruits, veg, meat, dairyEggs, cereals, confectionery], {}),
 
-  down: (queryInterface, Sequelize) => queryInterface
+  down: queryInterface => queryInterface
     .bulkDelete('Categories', null, {}),
 };
