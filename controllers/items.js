@@ -87,7 +87,7 @@ module.exports = {
 
   list(req, res) {
     (async () => {
-      let result = {};
+      const result = {};
 
       // Getting all the items for backwards compatibility
       try {
@@ -139,10 +139,14 @@ module.exports = {
       } catch (error) {
         return res.status(400).send(error);
       }
-      
+
       // For every category ID, look up the items for this category
-      for (let categoryId of categoryIds) {
-        result[categoryId] = await Item.findAll({
+
+      let promises = [];
+
+      categoryIds.forEach(async (categoryId) => {
+        // Get items in each category, without waiting for jobs to complete
+        const categoryItems = Item.findAll({
           where: {
             category_id: {
               [op.eq]: categoryId,
@@ -172,7 +176,16 @@ module.exports = {
             name: i.Category.name,
           },
         }));
-      }
+
+        promises.push(categoryItems);
+      });
+
+      // We now wait for all jobs to complete
+      promises = await Promise.all(promises);
+
+      promises.forEach((categoryItems, categoryId) => {
+        result[categoryId + 1] = categoryItems;
+      });
 
       res.status(200).send(result);
     })();

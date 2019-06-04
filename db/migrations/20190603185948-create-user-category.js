@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Images', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('UserCategories', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -16,9 +16,15 @@ module.exports = {
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
     },
-    filename: {
+    category_id: {
       allowNull: false,
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'Categories',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
     },
     createdAt: {
       allowNull: false,
@@ -29,5 +35,5 @@ module.exports = {
       type: Sequelize.DATE,
     },
   }),
-  down: queryInterface => queryInterface.dropTable('Images'),
+  down: queryInterface => queryInterface.dropTable('UserCategories'),
 };

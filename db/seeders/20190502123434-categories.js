@@ -1,49 +1,49 @@
-const no_category = {
-  name: "No Category",
+const noCategory = {
+  name: 'No Category',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 const fruits = {
-  name: "Fruits",
+  name: 'Fruits',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 const veg = {
-  name: "Vegetables",
+  name: 'Vegetables',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 const meat = {
-  name: "Meat",
+  name: 'Meat',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
-const dairy_eggs = {
-  name: "Dairy & Eggs",
+const dairyEggs = {
+  name: 'Dairy & Eggs',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 const cereals = {
-  name: "Cereals",
+  name: 'Cereals',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 const confectionery = {
-  name: "Confectionery",
+  name: 'Confectionery',
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+};
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface
-    .bulkInsert('Categories', [no_category, fruits, veg, meat, dairy_eggs, cereals, confectionery], {}),
+  up: queryInterface => queryInterface
+    .bulkInsert('Categories', [noCategory, fruits, veg, meat, dairyEggs, cereals, confectionery], {}),
 
-  down: (queryInterface, Sequelize) => queryInterface
+  down: queryInterface => queryInterface
     .bulkDelete('Categories', null, {}),
 };
