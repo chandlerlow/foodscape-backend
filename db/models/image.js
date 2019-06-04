@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     filename: DataTypes.STRING,
   }, {});
-  Image.associate = function (models) {
+  Image.associate = (models) => {
     // associations can be defined here
     Image.belongsTo(models.User, {
       foreignKey: 'user_id',
