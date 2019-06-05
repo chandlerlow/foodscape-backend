@@ -37,14 +37,26 @@ router.get('/items', itemController.list);
 /* GET items listed by current user */
 router.get('/items/user', itemController.listOwnedByCurrentUser);
 
-/* POST new item. */
+/* POST new item */
 router.post('/items', [
   check('name').exists(),
   check('quantity').exists(),
   check('expiry_date').exists().isAfter(),
   check('description').exists(),
-  check('category_id').exists(),
+  check('category_id').exists().isInt(),
 ], itemController.create);
+
+/* PUT existing item */
+router.put('/items/:id', [
+  check('name').exists(),
+  check('quantity').exists(),
+  check('expiry_date').exists().isAfter(),
+  check('description').exists(),
+  check('category_id').exists().isInt(),
+], itemController.update);
+
+/* DELETE existing item */
+router.delete('/items/:id', itemController.delete);
 
 /* Mark item as collected */
 router.post('/items/:id/collected', [

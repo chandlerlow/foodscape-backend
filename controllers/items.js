@@ -159,6 +159,32 @@ module.exports = {
     })();
   },
 
+  delete(req, res) {
+    (async () => {
+      // Delete the item
+      try {
+        const rowsDeleted = await Item.destroy({
+          where: {
+            id: {
+              [op.eq]: req.params.id,
+            },
+            user_id: {
+              [op.eq]: req.user.id,
+            },
+          },
+        });
+
+        if (rowsDeleted !== 1) {
+          return res.status(422).send({ message: 'Item for user not found' });
+        }
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
+      return res.status(200).send({ message: 'Item successfully deleted!' });
+    })();
+  },
+
   listOwnedByCurrentUser(req, res) {
     Item.findAll({
       where: {
