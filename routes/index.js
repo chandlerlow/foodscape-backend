@@ -45,6 +45,11 @@ router.post('/items', [
   check('description').exists(),
 ], itemController.create);
 
+/* Mark item as collected */
+router.post('/items/:id/collected', [
+  check('is_collected').exists().isBoolean(),
+], itemController.markCollected);
+
 /* Photo upload route (authentication required) */
 router.use('/photos/upload', auth);
 router.post('/photos/upload', photoController.upload);

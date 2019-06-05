@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    is_collected: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   }, {});
   Item.associate = (models) => {
     // associations can be defined here
