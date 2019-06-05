@@ -5,6 +5,7 @@ module.exports = {
     {
       type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
   ),
 
