@@ -85,7 +85,7 @@ module.exports = {
         const count = await Item.count({
           where: {
             id: {
-              [op.eq]: req.body.id,
+              [op.eq]: req.params.id,
             },
             user_id: {
               [op.eq]: req.user.id,
