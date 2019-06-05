@@ -43,6 +43,7 @@ router.post('/items', [
   check('quantity').exists(),
   check('expiry_date').exists().isAfter(),
   check('description').exists(),
+  check('category_id').exists(),
 ], itemController.create);
 
 /* Mark item as collected */
