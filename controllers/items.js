@@ -63,6 +63,7 @@ module.exports = {
           description: req.body.description,
           category_id: req.body.category_id,
           user_id: req.user.id,
+          is_collected: false,
         });
       } catch (error) {
         return res.status(500).send(error);
@@ -148,8 +149,7 @@ module.exports = {
           expiry_date: req.body.expiry_date,
           description: req.body.description,
           category_id: req.body.category_id,
-          user_id: req.user.id,
-        });
+        }, { where: req.params.id });
       } catch (error) {
         return res.status(500).send(error);
       }
@@ -173,6 +173,10 @@ module.exports = {
           model: Category,
         },
       ],
+      order: [
+        ['is_collected', 'ASC'],
+        ['expiry_date', 'ASC'],
+      ],
       attributes: {
         exclude: ['user_id', 'category_id'],
       },
@@ -183,6 +187,7 @@ module.exports = {
       quantity: i.quantity,
       expiry_date: i.expiry_date,
       description: i.description,
+      is_collected: i.is_collected,
       created_at: i.createdAt,
       updated_at: i.updatedAt,
       user: {
@@ -222,6 +227,10 @@ module.exports = {
             },
           },
           include: [{ model: User }, { model: Category }],
+          order: [
+            ['is_collected', 'ASC'],
+            ['expiry_date', 'ASC'],
+          ],
           attributes: {
             exclude: ['user_id', 'category_id'],
           },
@@ -232,6 +241,7 @@ module.exports = {
           quantity: i.quantity,
           expiry_date: i.expiry_date,
           description: i.description,
+          is_collected: i.is_collected,
           created_at: i.createdAt,
           updated_at: i.updatedAt,
           user: {
@@ -257,6 +267,46 @@ module.exports = {
       });
 
       res.status(200).send(result);
+    })();
+  },
+
+  markCollected(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    (async () => {
+      // Validate that the item exists and belongs to the current user
+      try {
+        const count = await Item.count({
+          where: {
+            id: {
+              [op.eq]: req.params.id,
+            },
+            user_id: {
+              [op.eq]: req.user.id,
+            },
+          },
+        });
+
+        if (count !== 1) {
+          return res.status(422).json({ message: 'Item not found for user' });
+        }
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
+      // Update the item
+      try {
+        await Item.update({
+          is_collected: req.body.is_collected,
+        }, { where: req.params.id });
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
+      return res.status(200).send({ message: 'Item successfully updated!' });
     })();
   },
 };

@@ -6,6 +6,7 @@ const bobBananas = {
   quantity: '1 bunch',
   expiry_date: moment().add(3, 'days').toDate(),
   description: 'A perfectly good bunch of bananas!',
+  is_collected: false,
   user_id: 2,
   category_id: 2,
   createdAt: new Date(),
