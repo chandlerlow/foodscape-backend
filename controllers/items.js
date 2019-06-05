@@ -252,6 +252,9 @@ module.exports = {
             category_id: {
               [op.eq]: categoryId,
             },
+            user_id: {
+              [op.ne]: req.user.id,
+            }
           },
           include: [{ model: User }, { model: Category }],
           order: [
