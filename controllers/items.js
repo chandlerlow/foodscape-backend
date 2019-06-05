@@ -36,6 +36,23 @@ module.exports = {
         }
       }
 
+      // Validate the category to ensure it exists
+      try {
+        const count = await Category.count({
+          where: {
+            id: {
+              [op.eq]: req.body.category_id,
+            },
+          },
+        });
+
+        if (count !== 1) {
+          return res.status(422).json({ message: 'Category not found' });
+        }
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
       // Create the item
       try {
         await Item.create({
@@ -44,6 +61,7 @@ module.exports = {
           quantity: req.body.quantity,
           expiry_date: req.body.expiry_date,
           description: req.body.description,
+          category_id: req.body.category_id,
           user_id: req.user.id,
         });
       } catch (error) {
@@ -152,7 +170,7 @@ module.exports = {
               [op.eq]: categoryId,
             },
           },
-          include: [{ model: User }, { model: Category },],
+          include: [{ model: User }, { model: Category }],
           attributes: {
             exclude: ['user_id', 'category_id'],
           },
