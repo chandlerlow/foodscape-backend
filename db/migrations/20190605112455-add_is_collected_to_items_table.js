@@ -9,7 +9,7 @@ module.exports = {
     },
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.removeColumn(
+  down: queryInterface => queryInterface.removeColumn(
     'Items',
     'is_collected',
   ),

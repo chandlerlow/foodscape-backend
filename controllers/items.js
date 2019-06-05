@@ -254,7 +254,7 @@ module.exports = {
             },
             user_id: {
               [op.ne]: req.user.id,
-            }
+            },
           },
           include: [{ model: User }, { model: Category }],
           order: [
@@ -331,7 +331,7 @@ module.exports = {
       try {
         await Item.update({
           is_collected: req.body.is_collected,
-        }, { where: req.params.id });
+        }, { where: { id: req.params.id } });
       } catch (error) {
         return res.status(500).send(error);
       }
