@@ -149,7 +149,7 @@ module.exports = {
           description: req.body.description,
           category_id: req.body.category_id,
           user_id: req.user.id,
-        });
+        }, { where: req.params.id });
       } catch (error) {
         return res.status(500).send(error);
       }
