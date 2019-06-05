@@ -72,6 +72,92 @@ module.exports = {
     })();
   },
 
+  update(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    (async () => {
+      // Validate that the item exists and belongs to the current user
+      try {
+        const count = await Item.count({
+          where: {
+            id: {
+              [op.eq]: req.body.id,
+            },
+            user_id: {
+              [op.eq]: req.user.id,
+            },
+          },
+        });
+
+        if (count !== 1) {
+          return res.status(422).json({ message: 'Item not found for user' });
+        }
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
+      // Validate the photo if it exists; we must ensure that the photo uploaded is already in the
+      // database for the current user
+      if (req.body.photo != null && req.body.photo !== '') {
+        try {
+          const count = await Image.count({
+            where: {
+              user_id: {
+                [op.eq]: req.user.id,
+              },
+              filename: {
+                [op.eq]: req.body.photo,
+              },
+            },
+          });
+
+          if (count === 0) {
+            return res.status(422).json({ message: 'Image not found for user' });
+          }
+        } catch (error) {
+          return res.status(500).send(error);
+        }
+      }
+
+      // Validate the category to ensure it exists
+      try {
+        const count = await Category.count({
+          where: {
+            id: {
+              [op.eq]: req.body.category_id,
+            },
+          },
+        });
+
+        if (count !== 1) {
+          return res.status(422).json({ message: 'Category not found' });
+        }
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
+      // Update the item
+      try {
+        await Item.update({
+          name: req.body.name,
+          photo: req.body.photo === '' ? null : req.body.photo,
+          quantity: req.body.quantity,
+          expiry_date: req.body.expiry_date,
+          description: req.body.description,
+          category_id: req.body.category_id,
+          user_id: req.user.id,
+        });
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
+      return res.status(200).send({ message: 'Item successfully updated!' });
+    })();
+  },
+
   listOwnedByCurrentUser(req, res) {
     Item.findAll({
       where: {
