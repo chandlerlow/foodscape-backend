@@ -165,11 +165,16 @@ module.exports = {
           [op.eq]: req.user.id,
         },
       },
-      include: {
-        model: User,
-      },
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Category,
+        },
+      ],
       attributes: {
-        exclude: ['user_id'],
+        exclude: ['user_id', 'category_id'],
       },
     }).then(items => res.status(200).send(items.map(i => ({
       id: i.id,
@@ -186,55 +191,16 @@ module.exports = {
         location: i.User.location,
         phone_no: i.User.phone_no,
       },
+      category: {
+        id: i.Category.id,
+        name: i.Category.name,
+      },
     })))).catch(error => res.status(400).send(error));
   },
 
   list(req, res) {
     (async () => {
       const result = {};
-
-      // Getting all the items for backwards compatibility
-      try {
-        result.all_categories = await Item.findAll({
-          where: {
-            user_id: {
-              [op.ne]: req.user.id,
-            },
-          },
-          include: [
-            {
-              model: User,
-            },
-            {
-              model: Category,
-            },
-          ],
-          attributes: {
-            exclude: ['user_id', 'category_id'],
-          },
-        }).map(i => ({
-          id: i.id,
-          name: i.name,
-          photo: i.photo,
-          quantity: i.quantity,
-          expiry_date: i.expiry_date,
-          description: i.description,
-          created_at: i.createdAt,
-          updated_at: i.updatedAt,
-          user: {
-            id: i.User.id,
-            name: i.User.name,
-            location: i.User.location,
-            phone_no: i.User.phone_no,
-          },
-          category: {
-            id: i.Category.id,
-            name: i.Category.name,
-          },
-        }));
-      } catch (error) {
-        return res.status(400).send(error);
-      }
 
       // Get a list of category IDs
       let categoryIds;
@@ -245,7 +211,6 @@ module.exports = {
       }
 
       // For every category ID, look up the items for this category
-
       let promises = [];
 
       categoryIds.forEach(async (categoryId) => {
