@@ -1,11 +1,9 @@
 const op = require('sequelize').Op;
 const { UserInterests } = require('../db/models');
 const { Item } = require('../db/models');
-const { User } = require('../db/models');
 
 module.exports = {
   upsert(req, res) {
-
     (async () => {
       // Validate the item to ensure it exists
       try {

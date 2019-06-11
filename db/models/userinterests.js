@@ -1,6 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const UserInterests = sequelize.define('UserInterests', {
   }, {});
-  UserInterests.associate = function (models) {};
+  // Uncomment to add associations
+  // UserInterests.associate = (models) => {};
   return UserInterests;
 };
