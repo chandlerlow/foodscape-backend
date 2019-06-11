@@ -26,9 +26,11 @@ module.exports = {
 
       // Update the UserInterests model
       try {
-        await UserInterests.upsert({
-          item_id: req.params.id,
-          user_id: req.user.id,
+        await UserInterests.findOrCreate({
+          where: {
+            item_id: req.params.id,
+            user_id: req.user.id,
+          },
         });
       } catch (error) {
         return res.status(500).send(error);
