@@ -68,10 +68,7 @@ router.post('/items/:id/collected', [
 router.use('/photos/upload', auth);
 router.post('/photos/upload', photoController.upload);
 
-/* Mark someone being interested in an item */
+/* Mark current user being interested in an item */
 router.post('/items/:id/interest', userInterestsController.upsert);
-
-/* Unmark user's interest */
-router.post('/items/:id/removeinterest', userInterestsController.delete);
 
 module.exports = router;
