@@ -254,7 +254,7 @@ module.exports = {
             },
             user_id: {
               [op.ne]: req.user.id,
-            }
+            },
           },
           include: [{ model: User }, { model: Category }],
           order: [
