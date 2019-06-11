@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Image, {
       foreignKey: 'user_id',
     });
+    User.belongsToMany(models.Item, {
+      as: 'Interested',
+      through: 'UserMessages',
+      foreignKey: 'item_id',
+    });
   };
   return User;
 };

@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
     Item.belongsTo(models.Category, {
       foreignKey: 'category_id',
     });
+    Item.belongsToMany(models.User, {
+      as: 'Interested',
+      through: 'UserMessages',
+      foreignKey: 'user_id',
+    });
   };
   return Item;
 };
