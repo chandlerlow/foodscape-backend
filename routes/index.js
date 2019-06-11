@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 const itemController = require('../controllers/items');
 const userController = require('../controllers/users');
 const photoController = require('../controllers/photos');
-const userMessageController = require('../controllers/usermessages');
+const userInterestsController = require('../controllers/userinterests');
 
 
 /* Default message on home page. */
@@ -69,6 +69,6 @@ router.use('/photos/upload', auth);
 router.post('/photos/upload', photoController.upload);
 
 /* Mark someone being interested in an item */
-router.post('/items/:id/interest', userMessageController.upsert);
+router.post('/items/:id/interest', userInterestsController.upsert);
 
 module.exports = router;

@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.belongsToMany(models.Item, {
       as: 'Interested',
-      through: 'UserMessages',
+      through: 'UserInterests',
       foreignKey: 'item_id',
     });
   };

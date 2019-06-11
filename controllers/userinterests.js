@@ -1,5 +1,5 @@
 const op = require('sequelize').Op;
-const { UserMessages } = require('../db/models');
+const { UserInterests } = require('../db/models');
 const { Item } = require('../db/models');
 const { User } = require('../db/models');
 
@@ -24,9 +24,9 @@ module.exports = {
         return res.status(500).send(error);
       }
 
-      // Update the UserMessage model
+      // Update the UserInterests model
       try {
-        await UserMessages.upsert({
+        await UserInterests.upsert({
           item_id: req.params.id,
           user_id: req.user.id,
         });
