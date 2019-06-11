@@ -37,4 +37,30 @@ module.exports = {
       return res.status(200).send({ message: 'Interest successfully registered!' });
     })();
   },
+
+  delete(req, res) {
+    (async() => {
+      // Delete the appropriate record in the UserInterests model
+      try {
+        const rowsDeleted = await UserInterests.destroy({
+          where: {
+            item_id: {
+              [op.eq]: req.params.id,
+            },
+            user_id: {
+              [op.eq]: req.user.id,
+            },
+          },
+        });
+
+        if (rowsDeleted !== 1) {
+          return res.status(422).send({ message: 'User wasn\'t interested in item!' });
+        }
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+
+      return res.status(200).send({ message: 'Interest successfully removed!' });
+    })();
+  },
 };
