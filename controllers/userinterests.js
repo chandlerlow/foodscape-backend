@@ -39,7 +39,7 @@ module.exports = {
   },
 
   delete(req, res) {
-    (async() => {
+    (async () => {
       // Delete the appropriate record in the UserInterests model
       try {
         const rowsDeleted = await UserInterests.destroy({
