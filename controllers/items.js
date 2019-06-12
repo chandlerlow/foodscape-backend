@@ -4,6 +4,7 @@ const { Item } = require('../db/models');
 const { User } = require('../db/models');
 const { Image } = require('../db/models');
 const { Category } = require('../db/models');
+const { UserInterests } = require('../db/models');
 
 module.exports = {
   create(req, res) {
@@ -249,6 +250,7 @@ module.exports = {
         // Get items in each category, without waiting for jobs to complete
         // (no await)
         const categoryItems = Item.findAll({
+          subQuery: false,
           where: {
             category_id: {
               [op.eq]: categoryId,
@@ -257,7 +259,11 @@ module.exports = {
               [op.ne]: req.user.id,
             },
           },
-          include: [{ model: User }, { model: Category }],
+          include: [
+            { model: User },
+            { model: Category },
+            { model: UserInterests, attributes: ['id'] },
+          ],
           order: [
             ['is_collected', 'ASC'],
             ['expiry_date', 'ASC'],
@@ -266,6 +272,7 @@ module.exports = {
             exclude: ['user_id', 'category_id'],
             include: [[Sequelize.fn("COUNT", Sequelize.col("UserInterests.item_id")), "interest_count"]],
           },
+          group: ['Item.id', 'User.id', 'Category.id', 'UserInterests.id'],
         }).map(i => ({
           id: i.id,
           name: i.name,
@@ -276,6 +283,7 @@ module.exports = {
           is_collected: i.is_collected,
           created_at: i.createdAt,
           updated_at: i.updatedAt,
+          interest: i.UserInterests.length,
           user: {
             id: i.User.id,
             name: i.User.name,
