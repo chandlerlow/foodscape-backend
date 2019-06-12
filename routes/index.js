@@ -6,6 +6,7 @@ const auth = require('../middleware/auth');
 const itemController = require('../controllers/items');
 const userController = require('../controllers/users');
 const photoController = require('../controllers/photos');
+const metricController = require('../controllers/metrics');
 
 
 /* Default message on home page. */
@@ -27,6 +28,9 @@ router.post('/auth/register', [
   check('location').exists(),
   check('phone_no').exists(),
 ], userController.register);
+
+router.use('/metrics', auth);
+router.post('/metrics', [check('action').exists()], metricController.create);
 
 /* Items routes (authentication required) */
 router.use('/items', auth);
