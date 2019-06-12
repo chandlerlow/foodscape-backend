@@ -8,6 +8,8 @@ To do the initial setup, run `docker-compose build` followed by `docker-compose 
 
 Any modifications to your local code will automatically be transferred to the server while it is running. Database scripts can be run as instructed below. Use `docker-compose down` to stop the server.
 
+To see Docker logs, run `docker-compose logs -f` while the server is running.
+
 ### Database Scripts
 
 To run all pending migrations: `docker-compose exec web /bin/sh -c 'npm run db:migrate'`

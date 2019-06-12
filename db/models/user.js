@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       required: true,
     },
+    is_staff: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      required: true,
+    },
   }, {});
 
   User.associate = (models) => {
@@ -30,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'user_id',
     });
     User.hasMany(models.Image, {
+      foreignKey: 'user_id',
+    });
+    User.hasMany(models.Metric, {
       foreignKey: 'user_id',
     });
   };

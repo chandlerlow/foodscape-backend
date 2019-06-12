@@ -68,6 +68,7 @@ module.exports = {
           name: req.body.name,
           location: req.body.location,
           phone_no: req.body.phone_no,
+          is_staff: false,
         });
 
         const token = jwt.sign({ userId: user.id }, config.secret);
