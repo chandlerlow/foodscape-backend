@@ -1,0 +1,59 @@
+<html>
+<head>
+  <title>Ramsey Hall</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-one-fifth"></div>
+      <div class="column">
+        <form action="/logout" method="post">
+          <div class="is-pulled-right">
+            <input class="button is-danger" type="submit" value="Log out"/>
+          </div>
+        </form>
+        <h1 class="title">Ramsey Hall</h1>
+          <p>Here, you can set a message to be displayed on FoodScape when your residents open the
+            app.</p>
+
+          {{#has_broadcast}}
+          <p>You are currently broadcasting the below message.</p>
+
+          <form action="/admin/delete" method="post">
+            <div>
+              <input class="button is-primary" type="submit" value="Clear current message"/>
+            </div>
+          </form>
+          {{/has_broadcast}}
+          {{^has_broadcast}}
+          <p>You are not currently broadcasting a message.</p>
+          {{/has_broadcast}}
+
+          <form action="/admin" method="post">
+            <div class="field" style="padding-top: 10px;">
+              <label class="label">Summary:</label>
+              <div class="control">
+                <textarea cols="40" rows="5" name="summary">{{summary}}</textarea>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Message:</label>
+              <div class="control">
+                <textarea cols="40" rows="5" name="message">{{message}}</textarea>
+              </div>
+            </div>
+            <div class="control">
+              <input class="button is-primary" type="submit" value="Set message"/>
+            </div>
+          </form>
+        </div>
+
+        <div class="column is-one-fifth"></div>
+      </div>
+    </div>
+</section>
+
+</body>
+</html>

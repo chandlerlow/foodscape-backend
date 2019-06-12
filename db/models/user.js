@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       required: true,
     },
+    is_staff: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      required: true,
+    },
   }, {});
 
   User.associate = (models) => {
