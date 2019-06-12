@@ -247,6 +247,7 @@ module.exports = {
 
       categoryIds.forEach(async (categoryId) => {
         // Get items in each category, without waiting for jobs to complete
+        // (no await)
         const categoryItems = Item.findAll({
           where: {
             category_id: {
@@ -263,6 +264,7 @@ module.exports = {
           ],
           attributes: {
             exclude: ['user_id', 'category_id'],
+            include: [[Sequelize.fn("COUNT", Sequelize.col("UserInterests.item_id")), "interest_count"]],
           },
         }).map(i => ({
           id: i.id,
