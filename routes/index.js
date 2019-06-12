@@ -12,6 +12,7 @@ const { sequelize } = require('../db/models/index');
 const itemController = require('../controllers/items');
 const userController = require('../controllers/users');
 const photoController = require('../controllers/photos');
+const userInterestsController = require('../controllers/userinterests');
 const metricController = require('../controllers/metrics');
 const broadcastController = require('../controllers/broadcasts');
 const adminController = require('../controllers/admin');
@@ -124,6 +125,9 @@ router.post('/items/:id/collected', [
 /* Photo upload route (authentication required) */
 router.use('/photos/upload', auth);
 router.post('/photos/upload', photoController.upload);
+
+/* Mark someone being interested in an item */
+router.post('/items/:id/interest', userInterestsController.post);
 
 /* Halls admin */
 router.get('/login', function(req, res) {
