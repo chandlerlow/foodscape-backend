@@ -14,6 +14,7 @@ module.exports = {
         await Metric.create({
           action: req.body.action,
           source: req.body.source,
+          additional: req.body.additional,
           user_id: req.user.id,
         });
       } catch (error) {
