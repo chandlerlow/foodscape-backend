@@ -2,7 +2,7 @@ const moment = require('moment');
 
 const bobBananas = {
   name: 'Bananas',
-  photo: 'default.jpg',
+  photo: 'bananas.jpg',
   quantity: '1 bunch',
   expiry_date: moment().add(3, 'days').toDate(),
   description: 'A perfectly good bunch of bananas!',
