@@ -270,9 +270,7 @@ module.exports = {
           ],
           attributes: {
             exclude: ['user_id', 'category_id'],
-            include: [[Sequelize.fn("COUNT", Sequelize.col("UserInterests.item_id")), "interest_count"]],
           },
-          group: ['Item.id', 'User.id', 'Category.id', 'UserInterests.id'],
         }).map(i => ({
           id: i.id,
           name: i.name,
