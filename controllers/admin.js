@@ -5,13 +5,15 @@ module.exports = {
     (async () => {
       try {
         const broadcasts = await Broadcast.findAll();
+
         if (broadcasts.length === 0) {
           return res.render('admin/index.html', {
             has_broadcast: false,
             summary: '',
             message: '',
           });
-        } else if (broadcasts.length > 1) {
+        }
+        if (broadcasts.length > 1) {
           return res.status(500).json({ message: 'Should not have more than one broadcast' });
         }
 
