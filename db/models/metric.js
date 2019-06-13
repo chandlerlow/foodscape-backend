@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     source: DataTypes.STRING,
     additional: DataTypes.STRING,
   }, {});
-  Metric.associate = function (models) {
+  Metric.associate = (models) => {
     Metric.belongsTo(models.User, {
       foreignKey: 'user_id',
     });

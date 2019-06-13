@@ -11,7 +11,7 @@ module.exports = {
         } else if (broadcasts.length > 1) {
           return res.status(500).json({ message: 'Should not have more than one broadcast' });
         }
-        
+
         return res.json({
           has_broadcast: true,
           summary: broadcasts[0].summary,

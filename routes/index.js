@@ -18,47 +18,45 @@ const broadcastController = require('../controllers/broadcasts');
 const adminController = require('../controllers/admin');
 
 /* Configure authentication middleware */
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   User.findByPk(id).then((user) => {
     done(null, user);
-  }).catch ((error) => {
+  }).catch((error) => {
     done(error);
   });
 });
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
+  (username, password, done) => {
     User.findOne({
       where: sequelize.and(
         {
-          'is_staff': true,
+          is_staff: true,
         },
         sequelize.where(
           sequelize.fn('lower', sequelize.col('username')),
           sequelize.fn('lower', username),
-        )
+        ),
       ),
     }).then((user) => {
       if (!user) {
         return done(null, false, { message: 'Invalid credentials' });
       }
-  
+
       // Check if user exists in database and compare password
-      bcrypt.compare(password, user.password).then(res => {
+      bcrypt.compare(password, user.password).then((res) => {
         if (res === false) {
           return done(null, false, { message: 'Invalid credentials' });
         }
-        
+
         return done(null, user);
       });
-    }).catch ((error) =>{
-      return done(error);
-    });
-  }
+    }).catch(error => done(error));
+  },
 ));
 
 /* Default message on home page. */
@@ -130,17 +128,18 @@ router.post('/photos/upload', photoController.upload);
 router.post('/items/:id/interest', userInterestsController.post);
 
 /* Halls admin */
-router.get('/login', function(req, res) {
+router.get('/login', (req, res) => {
   res.render('admin/login.html');
 });
 
-router.post('/login',
-  passport.authenticate('local', { successRedirect: '/admin',
-    failureRedirect: '/login',
-    failureFlash: true, failWithError: true })
-);
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/admin',
+  failureRedirect: '/login',
+  failureFlash: true,
+  failWithError: true,
+}));
 
-router.post('/logout', function(req, res){
+router.post('/logout', (req, res) => {
   req.logout();
   res.redirect('/login');
 });
