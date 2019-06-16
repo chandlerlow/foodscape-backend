@@ -103,7 +103,8 @@ module.exports = {
 
       // Validate the photo if it exists; we must ensure that the photo uploaded is already in the
       // database for the current user
-      if (req.body.photo != null && req.body.photo !== '') {
+      if (req.body.photo != null && req.body.photo !== '' && req.body.photo !== 'bananas.png'
+        && req.body.photo !== 'steak.png' && req.body.photo !== 'galaxy.jpg') {
         try {
           const count = await Image.count({
             where: {
