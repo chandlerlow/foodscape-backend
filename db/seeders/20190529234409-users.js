@@ -12,7 +12,7 @@ const jenny = {
 const bob = {
   name: 'Bob Bulmer',
   location: 'Block B',
-  phone_no: '07831946183',
+  phone_no: '07719293667',
   username: 'bob',
   password: '$2b$12$UE.JXo9/jd.9bvIb.Aa.9.N6o8LpVW8nqsGQiBcD5sDvUktdfW5ze', // "password"
   is_staff: true,
